@@ -13,6 +13,7 @@ const {
   commonAfterAll,
   u1Token,
   u4Token,
+  u2Token,
   testJobIds
 } = require("./_testCommon");
 
@@ -261,18 +262,15 @@ describe("GET /users/:username", function () {
   });
 
   test("works for admin with user with job applications", async function () {
-    await request(app)
-      .post(`/users/u1/jobs/${testJobIds[0]}`)
-      .set("authorization", `Bearer ${u4Token}`);
     const resp = await request(app)
-      .get(`/users/u1`)
+      .get(`/users/u2`)
       .set("authorization", `Bearer ${u4Token}`);
     expect(resp.body).toEqual({
       user: {
-        username: "u1",
-        firstName: "U1F",
-        lastName: "U1L",
-        email: "user1@user.com",
+        username: "u2",
+        firstName: "U2F",
+        lastName: "U2L",
+        email: "user2@user.com",
         isAdmin: false,
         jobs: [testJobIds[0]]
       }
@@ -280,18 +278,15 @@ describe("GET /users/:username", function () {
   });
 
   test("works for correct with user with job applications", async function () {
-    await request(app)
-      .post(`/users/u1/jobs/${testJobIds[0]}`)
-      .set("authorization", `Bearer ${u1Token}`);
     const resp = await request(app)
-      .get(`/users/u1`)
-      .set("authorization", `Bearer ${u1Token}`);
+      .get(`/users/u2`)
+      .set("authorization", `Bearer ${u2Token}`);
     expect(resp.body).toEqual({
       user: {
-        username: "u1",
-        firstName: "U1F",
-        lastName: "U1L",
-        email: "user1@user.com",
+        username: "u2",
+        firstName: "U2F",
+        lastName: "U2L",
+        email: "user2@user.com",
         isAdmin: false,
         jobs: [testJobIds[0]]
       }

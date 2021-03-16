@@ -79,8 +79,6 @@ function sqlForJobFilters(filters) {
   if (filters.hasOwnProperty('hasEquity')) {
     if (filters.hasEquity === "true") {
       conditions.push(`equity > 0`)
-    } else {
-      conditions.push("")
     }
   }
 
@@ -95,7 +93,7 @@ function sqlForJobFilters(filters) {
     values.push(filters.title);
   }
 
-  conditionString = conditions.filter(Boolean).join(" AND ");
+  conditionString = conditions.join(" AND ");
   if (conditionString != "") {
     conditionString = `WHERE ${conditionString}`
   }
